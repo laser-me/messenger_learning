@@ -1,37 +1,33 @@
 var chatSelector=""
 var chatList=[];
-var nameList=[];
+var nameList={};
 
 function startNewChat(){
-   var input = document.getElementById("inputLeft").value;
-      for (var i=0; i<nameList.length;i++){
-         if (nameList[i]==input){
+   var input = document.getElementById("inputLeft").value.trim();
+         if (!nameList[input]){
+            var newChat = document.createElement("div");
+            newChat.addEventListener("click", function (){createNewChat(input);});
+            newChat.className="chatMenu";
+            newChat.id=input+"Button";
+            var inputText = document.createTextNode(input);
+            newChat.appendChild(inputText);
+            document.getElementById("chatList").appendChild(newChat);
+            document.getElementById("inputLeft").value="";
+            putDB (input,"");
+            nameList[input]=true;
+            }
+         else{
             alert("Chat with same name is already exist!");
             document.getElementById("inputLeft").value="";
-            var sameName=1;
-            break;
-         }
-      }
-   if (sameName!=1){
-   var newChat = document.createElement("div");
-   newChat.addEventListener("click", function (){createNewChat(input);});
-   newChat.className="chatMenu";
-   newChat.id=input+"Button";
-   var inputText = document.createTextNode(input);
-   newChat.appendChild(inputText);
-   document.getElementById("chatList").appendChild(newChat);
-   document.getElementById("inputLeft").value="";
-   putDB (input,"");
-   nameList.push(input);
-   }
+            }
 }
 
 function startConversation(){
-   if (chatSelector==""){
+   if (!chatSelector){
    alert("Start with selecting any chat!");
    }else{
-      var inputText=document.getElementById("inputRight").value;
-      if (inputText!=""){      
+      var inputText=document.getElementById("inputRight").value.trim();
+      if (inputText){      
          var rightNow=new Date();
          var time =rightNow.toString().split("").splice(16,5);
          var timeString =time[0]+time[1]+time[2]+time[3]+time[4];
@@ -45,7 +41,7 @@ function startConversation(){
 }
 
 function createNewChat(idTXT){
-   if(chatSelector!=""){
+   if(chatSelector){
       clearChat(chatSelector);
       document.getElementById(chatSelector+"Button").className="chatMenu";
       }
@@ -193,7 +189,7 @@ function renderChat(chatName){
       var inputText = document.createTextNode(chatName);
       newChat.appendChild(inputText);
       document.getElementById("chatList").appendChild(newChat);
-      nameList.push(chatName);
+      nameList[chatName]=true;
 }
 
 window.addEventListener("DOMContentLoaded", init, false);
