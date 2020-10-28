@@ -7,6 +7,7 @@ function startNewChat(){
          if (!nameList[input]){
             var newChat = document.createElement("div");
             newChat.addEventListener("click", function (){createNewChat(input);});
+            newChat.addEventListener("contextmenu", function(){showDelete(input);});
             newChat.className="chatMenu";
             newChat.id=input+"Button";
             var inputText = document.createTextNode(input);
@@ -73,6 +74,10 @@ function inputDiv (a,b,chatSelector){
    var dateInput=document.createTextNode(b);
    newDate.appendChild(dateInput);       
    document.getElementById(a+idMeta).appendChild(newDate);
+}
+
+function showDelete (input) {
+    alert("Would you like delete chat"+input);
 }
 
 window.indexedDB = window.indexedDB || window.webkitIndexedDB ||
