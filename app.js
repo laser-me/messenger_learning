@@ -34,8 +34,8 @@ function startConversation(){
          
          document.getElementById("inputRight").value="";
          inputDiv(inputText,timeString,chatSelector)
+         chatList.push({messageText:inputText,messageTime:timeString});
          putDB(chatSelector,chatList);
-         chatList.push(inputText,timeString);
          }
       }   
 }
@@ -134,11 +134,11 @@ function writeChat(chatSelector){
        q1.onsuccess = function(){ 
           x= q1.result.message;
          if (x.length!=0){
-            for (var i=0; i<x.length; i+=2){
-            var first=x[i];
-            var sec=x[(i+1)];
+            for (var i=0; i<x.length; i++){
+                var first = x[i].messageText;
+                var sec = x[i].messageTime;
             inputDiv(first,sec,chatSelector);
-            chatList.push(first,sec);
+            chatList.push({messageText:first,messageTime:sec});
                 }    
             }
        tx.oncomplete = function () {
