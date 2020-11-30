@@ -5,6 +5,7 @@ import { IMessage_Date, ITodo } from './interfaces';
 import { MessageInput } from './components/MessageInput';
 import { MessageOutput } from './components/MessageOutput';
 import { ContextMenu } from './components/ContextMenu';
+import { ContextMenuMsg } from './components/ContextMenuMsg';
 
 const App: React.FC = () => {
 
@@ -83,7 +84,32 @@ const App: React.FC = () => {
       }));
     };
     
-    
+    const contextHandlerMsg = (id: number) => {
+     /* window.addEventListener("click", ()=>{
+        setTodos((prev) => prev.map((todo) => {
+          if (todo.showContext === true) {
+            return {
+              ...todo,
+              showContext: false,
+            };
+          } return todo;
+        }));
+      }
+      )*/
+      
+        setTodos((prev) => prev.map((todo) => {
+          if (todo.completed) {
+            todo.container.map((msg)=>{
+              if (msg.id===id){console.log(msg.showContext);
+                return {...todo.container,
+                showContext: true}
+              }
+              return todo.container;
+            })
+            
+          } return todo;
+        }));
+      };  
 
 
   
@@ -103,7 +129,8 @@ const App: React.FC = () => {
           <MessageInput todos={todos} addMessage={addMessageHandler} />
         </div>
         <div className="rightFrame_Output">
-          <MessageOutput todos={todos} />
+          <MessageOutput todos={todos} onContext={contextHandlerMsg}/>
+          <ContextMenuMsg todos={todos} onRemove={removeHandler}/>
         </div>
       </div>
     </>

@@ -19,6 +19,9 @@ export const MessageInput: React.FC<MessageInputProps> = ({
       message: input_text,
       date: timeString,
       id: Date.now(),
+      showContext:false,
+      x:"0px",
+      y:"0px"
     };
 
     ref.current!.value = '';

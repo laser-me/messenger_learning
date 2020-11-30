@@ -11,5 +11,8 @@ export interface ITodo {
 export interface IMessage_Date {
     message: string,
     date: string,
-    id:number
+    id:number,
+    showContext:boolean,
+    x: string,
+    y: string
 }
